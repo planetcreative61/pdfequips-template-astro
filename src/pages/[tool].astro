@@ -1,0 +1,52 @@
+---
+import NavBar from "pdfequips-navbar/NavBar";
+import Tool from "../components/Tool";
+import { tool, tools, downloadFile, errors, edit_page } from "../src/content/content";
+---
+
+export type data_type = {
+  title: string;
+  description: string;
+  color: string;
+  type: string;
+  to: string;
+};
+
+const routes = {
+  "/merge-pdf": { item: tool["Merge_PDF"] },
+};
+
+const item = routes[request.path].item;
+
+const websiteSchema = {
+  "@context": "http://schema.org",
+  "@type": "WebPage",
+  name: `PDFEquips ${item.title}`,
+  description: item.description,
+  url: `https://www.pdfequips.com${request.path}`,
+};
+
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{`PDFEquips | ${item.title}`}</title>
+  <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+  <meta name="description" content={item.description} />
+  <link rel="icon" href="/logo.png" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+  <NavBar path="path-to-tool" lang="" />
+  <Tool
+    tools={tools}
+    data={item}
+    lang=""
+    errors={errors}
+    edit_page={edit_page}
+    pages={edit_page.pages}
+    page={edit_page.page}
+    downloadFile={downloadFile}
+  />
+</body>
+</html>
