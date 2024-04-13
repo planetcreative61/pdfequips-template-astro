@@ -1,0 +1,8 @@
+---
+import Navbar from "../NavBar";
+const { lang, path } = Astro.props;
+---
+
+<header>
+    <Navbar client:load path={path} lang={lang} />
+</header>

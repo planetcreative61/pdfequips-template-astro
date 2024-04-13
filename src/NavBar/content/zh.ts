@@ -1,0 +1,58 @@
+import type { nav_content as _nav_content } from "../navbar";
+
+export const nav_content: _nav_content = {
+  merge: "合并",
+  split: "拆分",
+  compress: "压缩",
+  edit: {
+    title: "编辑",
+    read: "阅读 PDF",
+    edit: "编辑 PDF",
+    number: "给 PDF 编号",
+    rotate: "旋转 PDF",
+    lock: "锁定 PDF",
+    unlock: "解锁 PDF",
+    watermark: "PDF 添加水印",
+    remove: "删除页面"
+  },
+  convert: "转换",
+  convert_pdf: "转换PDF",
+  convert_to_pdf: "转换为PDF",
+  convert_from_pdf: "从PDF转换",
+  read_edit_pdf: "阅读和编辑 PDF",
+  convert_to: {
+    jpg_to_pdf: "JPG转PDF",
+    png_to_pdf: "PNG转PDF",
+    gif_to_pdf: "GIF转PDF",
+    tiff_to_pdf: "TIFF转PDF",
+    bmp_to_pdf: "BMP转PDF",
+    svg_to_pdf: "SVG转PDF",
+    webp_to_pdf: "WebP转PDF",
+    heif_heic_to_pdf: "HEIF/HEIC 转 PDF",
+    word_to_pdf: "Word转PDF",
+    powerpoint_to_pdf: "PowerPoint转PDF",
+    excel_to_pdf: "Excel转PDF",
+    html_to_pdf: "HTML转PDF",
+    markdown_to_pdf: "降价到 PDF",
+    web_to_pdf: "网页转 PDF",
+  },
+  convert_from: {
+    pdf_to_jpg: "PDF转JPG",
+    pdf_to_word: "PDF转Word",
+    pdf_to_powerpoint: "PDF转PowerPoint",
+    pdf_to_excel: "PDF转Excel",
+    pdf_to_pdf_a: "PDF转PDF/A",
+    pdf_to_text: "PDF 转文本",
+    pdf_to_html: "PDF 到 HTML",
+    pdf_to_markdown: "PDF 到 Markdown",
+    pdf_to_png: "PDF转PNG",
+    pdf_to_gif: "PDF转GIF",
+    pdf_to_tiff: "PDF转TIFF",
+    pdf_to_bmp: "PDF转BMP",
+    pdf_to_svg: "PDF转SVG",
+    pdf_to_webp: "PDF转WebP",
+    pdf_to_heif_heic: "PDF转HEIF/HEIC"
+  },
+  sidebar: { menu: "菜单", home: "主页" },
+  language: "语言"
+};
