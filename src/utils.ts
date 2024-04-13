@@ -1,10 +1,10 @@
-import { NextRouter } from "next/router";
-import { Dispatch, useEffect, useMemo, useState } from "react";
-import { AnyAction } from "@reduxjs/toolkit";
-import type { errors as _ } from "../content";
+import { type Dispatch, useEffect, useMemo, useState } from "react";
+import { type Action } from "@reduxjs/toolkit";
+import type { errors as _ } from "./content";
 import { setField } from "./store";
 import { getDocument } from "pdfjs-dist";
-import { PDFDocumentProxy, PageViewport, RenderTask } from "pdfjs-dist";
+import type { PDFDocumentProxy, PageViewport, RenderTask } from "pdfjs-dist";
+// @ts-ignore
 const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
 import { GlobalWorkerOptions } from "pdfjs-dist";
 GlobalWorkerOptions.workerSrc = pdfjsWorker;
@@ -38,7 +38,7 @@ export function useRotatedImage(imageUrl: string): string | null {
 }
 
 const DEFAULT_PDF_IMAGE = "/images/corrupted.png";
-function emptyPDFHandler(dispatch: Dispatch<AnyAction>, errors: _) {
+function emptyPDFHandler(dispatch: Dispatch<Action>, errors: _) {
   dispatch(setField({ errorMessage: errors.EMPTY_FILE.message }));
   dispatch(setField({ errorCode: "ERR_EMPTY_FILE" }));
   return DEFAULT_PDF_IMAGE;
@@ -49,7 +49,7 @@ export const getFileDetailsTooltipContent = async (
   pages: string,
   page: string,
   lang: string,
-  dispatch: Dispatch<AnyAction>,
+  dispatch: Dispatch<Action>,
   errors: _
 ): Promise<string> => {
   const sizeInBytes = file.size;
@@ -91,8 +91,9 @@ export const getFileDetailsTooltipContent = async (
         if (pageCount === 2 && lang === "ar") {
           tooltipContent += " - صفحتين</bdi>";
         } else {
-          tooltipContent += ` - ${lang === "ar" && pageCount === 1 ? "" : pageCount + " "
-            }${pageCount > 1 ? pages : page}</bdi>`;
+          tooltipContent += ` - ${
+            lang === "ar" && pageCount === 1 ? "" : pageCount + " "
+          }${pageCount > 1 ? pages : page}</bdi>`;
         }
         URL.revokeObjectURL(url);
         if (!file.size) {
@@ -116,7 +117,7 @@ export const getFileDetailsTooltipContent = async (
 
 export async function getFirstPageAsImage(
   file: File,
-  dispatch: Dispatch<AnyAction>,
+  dispatch: Dispatch<Action>,
   errors: _
 ): Promise<string> {
   const fileUrl = URL.createObjectURL(file);
@@ -171,19 +172,15 @@ export const getPlaceHoderImageUrl = (extension: string) => {
 };
 
 // a function to check if the extension is .jpg or .pdf:
-export const isDraggableExtension = (ext: string, router: NextRouter) => {
-  return ext === ".jpg" || router.asPath.includes("merge-pdf");
+export const isDraggableExtension = (ext: string, asPath: string) => {
+  return ext === ".jpg" || asPath.includes("merge-pdf");
 };
-
-export function isrtllang(asPath: string): boolean {
-  return asPath.startsWith("/ar");
-}
 
 export const validateFiles = (
   _files: FileList | File[],
   extension: string,
   errors: _,
-  dispatch: Dispatch<AnyAction>,
+  dispatch: Dispatch<Action>,
   state: {
     path: string;
   }
@@ -244,7 +241,7 @@ export const validateFiles = (
     ) {
       const errorMessage =
         errors.NOT_SUPPORTED_TYPE.types[
-        extension as keyof typeof errors.NOT_SUPPORTED_TYPE.types
+          extension as keyof typeof errors.NOT_SUPPORTED_TYPE.types
         ] || errors.NOT_SUPPORTED_TYPE.message;
       dispatch(setField({ errorMessage: errorMessage }));
       return false;
@@ -266,7 +263,9 @@ export const validateFiles = (
         const img = new Image();
         img.src = reader.result as string;
         img.onerror = () => {
-          dispatch(setField({ errorMessage: errors.INVALID_IMAGE_DATA.message }));
+          dispatch(
+            setField({ errorMessage: errors.INVALID_IMAGE_DATA.message })
+          );
           return false;
         };
       };

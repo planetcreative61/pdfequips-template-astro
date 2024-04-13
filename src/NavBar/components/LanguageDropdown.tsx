@@ -2,8 +2,14 @@ import { useEffect, useRef } from "react";
 import LanguageIcon from "../icons/LanguageIcon";
 import { useNavState } from "../src/useNavState";
 import { getLanguage, setLanguage } from "../src/language";
-const LanguageDropdown = ({ removeTrailingSlash = false, language, ...props }: { removeTrailingSlash?: boolean, language?: string } & React.ComponentProps<"div">) => {
-
+const LanguageDropdown = ({
+  removeTrailingSlash = false,
+  language,
+  ...props
+}: {
+  removeTrailingSlash?: boolean;
+  language?: string;
+} & React.ComponentProps<"div">) => {
   const { path, showLangMenu, setShowLangMenu } = useNavState();
   const langMenuRef = useRef<HTMLDivElement>(null);
   const langWrapperRef = useRef<HTMLDivElement>(null);
@@ -24,8 +30,9 @@ const LanguageDropdown = ({ removeTrailingSlash = false, language, ...props }: {
   return (
     <div
       {...props}
-      className={`language-dropdown${props.className ? " " + props.className : ""
-        }`}
+      className={`language-dropdown${
+        props.className ? " " + props.className : ""
+      }`}
       ref={langMenuRef}
     >
       <button
@@ -43,8 +50,9 @@ const LanguageDropdown = ({ removeTrailingSlash = false, language, ...props }: {
       </button>
       {/* check if this element has a hide class then add a .none class to it */}
       <div
-        className={`dropdown-wrapper drop-down-container${showLangMenu ? " animate show" : " animate hide"
-          }`}
+        className={`dropdown-wrapper drop-down-container${
+          showLangMenu ? " animate show" : " animate hide"
+        }`}
         ref={langWrapperRef}
       >
         <ul className="nav-list vertical-list">

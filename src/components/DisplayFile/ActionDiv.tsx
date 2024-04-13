@@ -1,12 +1,17 @@
 import { RefreshIcon, TrashIcon } from "@heroicons/react/solid";
-import { useRotatedImage, validateFiles } from "../../src/utils";
-import { Dispatch, SetStateAction, useCallback, useContext } from "react";
+import { useRotatedImage, validateFiles } from "../../utils";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useContext,
+} from "react";
 import type { errors as _ } from "../../content";
-// import { ToolStoreContext } from "../../src/ToolStoreContext";
-import { useRouter } from "next/router";
+// import { ToolStoreContext } from "../../ToolStoreContext";
+
 import { useSelector, useDispatch } from "react-redux";
-import { ToolState } from "../../src/store";
-import { useFileStore } from "../../src/file-store";
+import type { ToolState } from "../../store";
+import { useFileStore } from "../../file-store";
 
 export type ActionProps = {
   index: number;
@@ -36,8 +41,7 @@ export const ActionDiv = ({
   };
   // const rotatedImageUrl = useRotatedImage(item.imageUrl);
   // router and tool path
-  const router = useRouter();
-  let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
+
   // const handleRotateImage = useCallback(() => {
   //   if (rotatedImageUrl) {
   //     const newImageUrls = [...imageUrls];

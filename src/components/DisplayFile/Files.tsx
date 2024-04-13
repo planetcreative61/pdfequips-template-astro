@@ -1,13 +1,13 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
 import type { errors as _ } from "../../content";
 import ImageCard from "./ImageCard";
 import FileCard from "./FileCard";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { isDraggableExtension } from "../../src/utils";
-import { useRouter } from "next/router";
+import { isDraggableExtension } from "../../utils";
+
 import { useSelector, useDispatch } from "react-redux";
-import store, { ToolState } from "../../src/store";
-import { useFileStore } from "../../src/file-store";
+import store, { type ToolState } from "../../store";
+import { useFileStore } from "../../file-store";
 
 type FileProps = {
   errors: _;
@@ -17,6 +17,7 @@ type FileProps = {
   loader_text: string;
   showSpinner: boolean;
   fileDetailProps: [string, string, string];
+  path: string;
 };
 const Files = ({
   errors,
@@ -25,20 +26,20 @@ const Files = ({
   loader_text,
   showSpinner,
   fileDetailProps,
+  path
 }: FileProps) => {
   // const store = useSelector((state: { tool: ToolState }) => state.tool);
   const { files, imageUrls, setImageUrls } = useFileStore();
 
   useEffect(() => {}, [files]);
 
-  const router = useRouter();
   const handleDragEnd = (result: any) => {
     if (!result.destination) {
       return;
     }
     // Argument of type 'Blob[]' is not assignable to parameter of type 'File[]'.
     // Type 'Blob' is missing the following properties from type 'File': lastModified, webkitRelativePathts(2345)
-    if (isDraggableExtension(extension, router)) {
+    if (isDraggableExtension(extension, path)) {
       // dispatch(setFiles(store.files));
     }
   };
@@ -61,7 +62,7 @@ const Files = ({
                   key={file.name}
                   draggableId={file.name}
                   index={index}
-                  isDragDisabled={!isDraggableExtension(extension, router)}
+                  isDragDisabled={!isDraggableExtension(extension, path)}
                 >
                   {(provided, snapshot) => (
                     <div
@@ -94,7 +95,7 @@ const Files = ({
                           extension={extension}
                           file={file}
                           index={index}
-                          isDraggable={isDraggableExtension(extension, router)}
+                          isDraggable={isDraggableExtension(extension, path)}
                           provided={provided}
                           snapshot={snapshot}
                           errors={errors}

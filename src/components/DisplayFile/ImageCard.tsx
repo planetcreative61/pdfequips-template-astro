@@ -3,7 +3,7 @@ import { ActionDiv } from "./ActionDiv";
 import { Tooltip } from "react-tooltip";
 import type { errors as _ } from "../../content";
 import { useDispatch } from "react-redux";
-import { getFileDetailsTooltipContent } from "../../src/utils";
+import { getFileDetailsTooltipContent } from "../../utils";
 import { Loader } from "./Loader";
 interface ImageCardProps {
   index: number;

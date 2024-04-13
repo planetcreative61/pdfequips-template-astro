@@ -2,15 +2,14 @@ import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 
 import EditPage from "./EditPage";
-import { ToolState, setField } from "../src/store";
+import { type ToolState, setField } from "../store";
 
-import { useRouter } from "next/router";
 import type { edit_page, tools, downloadFile } from "../content";
 import type { errors as _ } from "../content";
 import ErrorElement from "./ErrorElement";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { useFileStore } from "../src/file-store";
+import { useFileStore } from "../file-store";
 import { FileInputForm } from "./Tool/FileInputForm";
 import DownloadFile from "./DownloadFile";
 
@@ -63,7 +62,6 @@ const Tool: React.FC<ToolProps> = ({
   const { setFiles } = useFileStore();
   const dispatch = useDispatch();
   // const dispatch = useDispatch();
-  const router = useRouter();
   const handleHideTool = () => {
     dispatch(dispatch(setField({ showTool: false })));
   };
@@ -105,8 +103,9 @@ const Tool: React.FC<ToolProps> = ({
           <div className="overlay display-4">{tools.drop_files}</div>
         )}
         <div
-          className={`text-center ${!showTool ? "" : "d-flex"
-            } flex-column tools ${stateShowTool ? "" : "d-none"}`}
+          className={`text-center ${
+            !showTool ? "" : "d-flex"
+          } flex-column tools ${stateShowTool ? "" : "d-none"}`}
         >
           <h1 className="display-3">
             <bdi>{data.title}</bdi>

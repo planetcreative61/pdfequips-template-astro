@@ -14,7 +14,8 @@ body.development,
 
 .navbar {
   font-family: "Raleway", sans-serif;
-  @include extend("navbar justify-content-start navbar-expand-lg bg-light p-0 position-relative"
+  @include extend(
+    "navbar justify-content-start navbar-expand-lg bg-light p-0 position-relative"
   );
 
   &:not(.no-shadow) {
@@ -142,14 +143,14 @@ body.development,
       height: 100vh !important;
     }
 
-    >* {
+    > * {
       height: 100%;
     }
 
     top: 0px;
 
     .nav-list {
-      >.nav-list-item {
+      > .nav-list-item {
         @include extend("p-2");
       }
     }
@@ -232,7 +233,7 @@ body.development,
       top: 2em;
       flex-direction: column;
 
-      >* {
+      > * {
         flex: 1;
       }
     }
