@@ -1,44 +1,33 @@
 ---
-import NavBar from "pdfequips-navbar/NavBar";
-import Tool from "../components/Tool";
-import { tool, tools, downloadFile, errors, edit_page } from "../src/content/content";
----
-
-export type data_type = {
-  title: string;
-  description: string;
-  color: string;
-  type: string;
-  to: string;
-};
-
-const routes = {
+import MainLayout from '../layout/MainLayout.astro';
+import { tool, tools, errors, edit_page, downloadFile } from "../content/content"
+export const routes = {
   "/merge-pdf": { item: tool["Merge_PDF"] },
 };
+// getting the current item:
+const item = routes[`/${Astro.params.tool}` as keyof typeof routes].item;
 
-const item = routes[request.path].item;
-
-const websiteSchema = {
-  "@context": "http://schema.org",
-  "@type": "WebPage",
-  name: `PDFEquips ${item.title}`,
-  description: item.description,
-  url: `https://www.pdfequips.com${request.path}`,
-};
-
+export async function getStaticPaths() {
+  const paths = Object.keys(routes).map((key) => ({
+    params: { tool: key.substring(1) },
+  }));
+  return paths
+}
+export async function getStaticProps({
+  params,
+}: {
+  params: {
+    tool: string;
+  };
+}) {
+  const item = routes[`/${params.tool}` as keyof typeof routes].item;
+  return { props: { item } };
+}
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{`PDFEquips | ${item.title}`}</title>
-  <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
-  <meta name="description" content={item.description} />
-  <link rel="icon" href="/logo.png" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-</head>
-<body>
-  <NavBar path="path-to-tool" lang="" />
-  <Tool
+
+
+<MainLayout lang="en" title={`PDFEquips | ${item.title}`} path="path-to-tool">
+ <!-- <Tool
     tools={tools}
     data={item}
     lang=""
@@ -47,6 +36,5 @@ const websiteSchema = {
     pages={edit_page.pages}
     page={edit_page.page}
     downloadFile={downloadFile}
-  />
-</body>
-</html>
+ /> -->
+</MainLayout>
