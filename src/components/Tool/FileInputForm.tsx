@@ -2,14 +2,14 @@ import React, { useEffect, useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 // store
-import { ToolState } from "../../src/store";
-import { handleUpload } from "../../src/handlers/handleUpload";
-import { handleChange } from "../../src/handlers/handleChange";
-import { useFileStore } from "../../src/file-store";
+import type { ToolState } from "../../store";
+import { handleUpload } from "../../handlers/handleUpload";
+import { handleChange } from "../../handlers/handleChange";
+import { useFileStore } from "../../file-store";
 // types
 import type { tools } from "../../content";
-import { useRouter } from "next/router";
-import { validateFiles } from "../../src/utils";
+
+import { validateFiles } from "../../utils";
 type AcceptedFileTypes = {
   [key in ".pdf" | ".pptx" | ".docx" | ".xlsx" | ".jpg" | ".html"]: string;
 };
@@ -30,7 +30,7 @@ export const FileInputForm: React.FC<FileInputFormProps> = ({
   lang,
   tools,
 }) => {
-  const path = data.to.replace("/", "")
+  const path = data.to.replace("/", "");
   const errorMessage = useSelector(
     (state: { tool: ToolState }) => state.tool.errorMessage
   );

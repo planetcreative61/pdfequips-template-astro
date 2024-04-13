@@ -1,17 +1,14 @@
-import { useEffect, useState, RefObject, useContext } from "react";
+import { useEffect, useState, type RefObject, useContext } from "react";
 import "react-tooltip/dist/react-tooltip.css";
 
-
-import { useRouter } from "next/router";
-
-import { validateFiles } from "../src/utils";
+import { validateFiles } from "../utils";
 
 import type { errors as _, edit_page } from "../content";
 import Files from "./DisplayFile/Files";
-// import { ToolStoreContext } from "../src/ToolStoreContext";
+// import { ToolStoreContext } from "../ToolStoreContext";
 import { useSelector, useDispatch } from "react-redux";
-import { ToolState, resetErrorMessage } from "../src/store";
-import { useFileStore } from "../src/file-store";
+import type { ToolState, resetErrorMessage } from "../store";
+import { useFileStore } from "../file-store";
 type propTypes = {
   extension: string;
   pages: string;
@@ -19,6 +16,7 @@ type propTypes = {
   lang: string;
   errors: _;
   edit_page: edit_page;
+  path: string;
 };
 
 const DisplayFile = ({
@@ -28,15 +26,13 @@ const DisplayFile = ({
   lang,
   errors,
   edit_page,
+  path
 }: propTypes) => {
   const [showSpinner, setShowSpinner] = useState(true);
   const [toolTipSizes, setToolTipSizes] = useState<string[]>([]);
   // actual files
   const { files, setImageUrls } = useFileStore();
   const dispatch = useDispatch();
-  // router
-  const router = useRouter();
-  let path = router.asPath.replace(/^\/[a-z]{2}\//, "").replace(/^\//, "");
 
   useEffect(() => {
     // const max_files = 2;
@@ -121,6 +117,7 @@ const DisplayFile = ({
         loader_text={edit_page.loader_text}
         showSpinner={showSpinner}
         fileDetailProps={[pages, page, lang]}
+        path={path}
       />
     </>
   );

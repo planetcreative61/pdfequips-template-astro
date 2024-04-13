@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import type { edit_page as _ } from "../../content";
 
 export interface OptionsProps {
@@ -6,10 +5,8 @@ export interface OptionsProps {
   edit_page: _;
 }
 
-
-
 const Options = ({ layout, edit_page }: OptionsProps) => {
-  return <></>
+  return <></>;
 };
 
 export default Options;

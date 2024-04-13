@@ -1,5 +1,5 @@
-import { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
-import { ActionDiv, ActionProps } from "./ActionDiv";
+import type { DraggableProvided, DraggableStateSnapshot } from "react-beautiful-dnd";
+import { ActionDiv, type ActionProps } from "./ActionDiv";
 import { Tooltip } from "react-tooltip";
 import type { errors as _ } from "../../content";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import {
   getFileDetailsTooltipContent,
   getFirstPageAsImage,
   getPlaceHoderImageUrl,
-} from "../../src/utils";
+} from "../../utils";
 import { useDispatch } from "react-redux";
 type OmitFileName<T extends ActionProps> = Omit<T, "fileName">;
 

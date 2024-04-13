@@ -1,23 +1,15 @@
 import DisplayFile from "./DisplayFile";
-import {
-  useEffect,
-  useRef
-} from "react";
+import { useEffect, useRef } from "react";
 
-import Options, { OptionsProps } from "./DisplayFile/Options";
+import Options, { type OptionsProps } from "./DisplayFile/Options";
 import type { edit_page } from "../content";
 import ErrorElement from "./ErrorElement";
 import type { errors as _ } from "../content";
-import { Spinner } from "react-bootstrap";
 import { CogIcon } from "@heroicons/react/outline";
-// import { ToolStoreContext } from "../src/ToolStoreContext";
+// import { ToolStoreContext } from "../ToolStoreContext";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  ToolState,
-  resetErrorMessage,
-  setField
-} from "../src/store";
-import { useFileStore } from "../src/file-store";
+import { type ToolState, resetErrorMessage, setField } from "../store";
+import { useFileStore } from "../file-store";
 import AddMoreButton from "./EditArea/AddMoreButton";
 import { SubmitBtn } from "./EditArea/SubmitBtn";
 
@@ -40,7 +32,7 @@ const EditPage = ({
   page,
   lang,
   errors,
-  path
+  path,
 }: editPageProps) => {
   // const [showOptions, setShowOptions] = useState(false);
   // state variables:
@@ -81,6 +73,7 @@ const EditPage = ({
           lang={lang}
           errors={errors}
           edit_page={edit_page}
+          path={path}
         />
         {/* {state?.showErrorMessage ? <ErrorElement state={state} /> : null} */}
         <ErrorElement />
@@ -104,12 +97,12 @@ const EditPage = ({
           style={
             showOptions
               ? {
-                top:
-                  navHeight +
-                  (gearRef.current
-                    ? (gearRef.current as HTMLElement).clientHeight
-                    : 0),
-              }
+                  top:
+                    navHeight +
+                    (gearRef.current
+                      ? (gearRef.current as HTMLElement).clientHeight
+                      : 0),
+                }
               : {}
           }
         >
@@ -121,8 +114,8 @@ const EditPage = ({
         style={
           showOptions
             ? {
-              top: navHeight,
-            }
+                top: navHeight,
+              }
             : {}
         }
       >
@@ -130,7 +123,10 @@ const EditPage = ({
           <bdi>
             {
               edit_page.edit_page_titles[
-              path.replace(/-/g, "_") as keyof typeof edit_page.edit_page_titles
+                path.replace(
+                  /-/g,
+                  "_"
+                ) as keyof typeof edit_page.edit_page_titles
               ]
             }
           </bdi>
